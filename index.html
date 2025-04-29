@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Royal Registration Form</title>
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #3a0ca3, #7209b7);
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .registration-form {
+      background: #ffffff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+      width: 320px;
+    }
+    .registration-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-size: 13px;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+    .form-group input:focus {
+      border-color: #5f0f40;
+      outline: none;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    .submit-btn {
+      width: 100%;
+      background: #5f0f40;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover {
+      background: #9d4edd;
+    }
+  </style>
+</head>
+<body>
+
+<div class="registration-form">
+  <h2>Register</h2>
+  <form id="regForm" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" id="firstName">
+      <div class="error" id="firstNameError"></div>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName">
+      <div class="error" id="lastNameError"></div>
+    </div>
+    <div class="form-group">
+      <label>Email ID</label>
+      <input type="text" id="email">
+      <div class="error" id="emailError"></div>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password">
+      <div class="error" id="passwordError"></div>
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="confirmPassword">
+      <div class="error" id="confirmPasswordError"></div>
+    </div>
+    <button type="submit" class="submit-btn">Register</button>
+  </form>
+</div>
+
+<script>
+function validateForm() {
+    // Clear previous errors
+    document.getElementById("firstNameError").innerText = "";
+    document.getElementById("lastNameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("passwordError").innerText = "";
+    document.getElementById("confirmPasswordError").innerText = "";
+
+    let isValid = true;
+
+    // Get field values
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+    // Empty fields check
+    if (firstName === "") {
+        document.getElementById("firstNameError").innerText = "First Name is required.";
+        isValid = false;
+    }
+    if (lastName === "") {
+        document.getElementById("lastNameError").innerText = "Last Name is required.";
+        isValid = false;
+    }
+    if (email === "") {
+        document.getElementById("emailError").innerText = "Email is required.";
+        isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) { // Email format validation
+        document.getElementById("emailError").innerText = "Enter a valid email address.";
+        isValid = false;
+    }
+    if (password === "") {
+        document.getElementById("passwordError").innerText = "Password is required.";
+        isValid = false;
+    }
+    if (confirmPassword === "") {
+        document.getElementById("confirmPasswordError").innerText = "Please confirm your password.";
+        isValid = false;
+    } else if (password !== confirmPassword) { // Password match check
+        document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+        isValid = false;
+    }
+
+    if (isValid) {
+        // ✅ If everything is correct, show professional SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Registered Successfully!',
+          text: 'WEB TECHNOLOGY FORM',
+          confirmButtonColor: '#5f0f40'
+        });
+
+        document.getElementById("regForm").reset(); // Clear form
+    }
+
+    return false; // prevent form submit for demo
+}
+</script>
+
+</body>
+</html>
